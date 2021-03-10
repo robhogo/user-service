@@ -21,7 +21,7 @@ namespace RoBHo_UserService
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>()
-                    .UseUrls("http://localhost:5000");
+                    .UseUrls("http://*:5000");
                 });
     }
 }
