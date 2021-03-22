@@ -12,5 +12,6 @@ namespace RoBHo_UserService.Services
         AuthenticateResponse Authenticate(AuthenticateRequest model);
         IEnumerable<User> GetAll();
         User GetById(int id);
+        bool Register(RegisterRequest model);
     }
 }

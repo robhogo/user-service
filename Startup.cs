@@ -2,10 +2,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RoBHo_UserService.Contexts;
 using RoBHo_UserService.Helpers;
 using RoBHo_UserService.Services;
 using System;
@@ -27,6 +29,9 @@ namespace RoBHo_UserService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connection = Configuration.GetConnectionString("UserServiceContext");
+            services.AddDbContext<UserServiceContext>(
+                options => options.UseSqlServer(connection));
 
             services.AddCors();
             services.AddControllers();
@@ -39,8 +44,10 @@ namespace RoBHo_UserService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserServiceContext context)
         {
+            context.Database.Migrate();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

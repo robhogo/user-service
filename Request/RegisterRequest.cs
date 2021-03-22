@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace RoBHo_UserService.Models
+namespace RoBHo_UserService.Request
 {
-    public class User
+    public class RegisterRequest
     {
-        [Key]
-        public int Id { get; set; }
+        [Required]
         public string Username { get; set; }
-        public string Email { get; set; }
-
-        [JsonIgnore]
+        [Required]
         public string Password { get; set; }
+        [Required]
+        public string Email { get; set; }
     }
 }

@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>RoBHo_UserService</RootNamespace>
+    <UserSecretsId>d30e266b-931c-4b5d-a85c-a54c5e085056</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,13 +16,8 @@
 	  </PackageReference>
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.6" />
+	  <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
   </ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="Controllers\" />
-		<Folder Include="Models\" />
-		<Folder Include="Services\" />
-		<Folder Include="Helpers\" />
-	</ItemGroup>
 </Project>

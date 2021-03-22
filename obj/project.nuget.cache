@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "P79oGcmy9w6l8n2mnwYM3Mx9iLH0MgaxLXXk5xObbGSLjenjoC+MTt4BUs87p0Dn4enK73VRRd3DPLdgQcNlcQ==",
+  "dgSpecHash": "Isg1YO9+fPMYz+urAprTFDGXIJJXZqvYMT+IyWZ5ht4OrwjO2JnVjdZiO02j6c03DyfAiOvHLtv+Vn/ObsFxEg==",
   "success": true,
   "projectFilePath": "C:\\S6Projects\\RoBHo-UserService\\RoBHo-UserService.csproj",
   "expectedPackageFiles": [
@@ -33,6 +33,7 @@
     "C:\\Users\\jaapi\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.8.0\\microsoft.identitymodel.tokens.6.8.0.nupkg.sha512",
     "C:\\Users\\jaapi\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\jaapi\\.nuget\\packages\\microsoft.netcore.targets\\1.1.3\\microsoft.netcore.targets.1.1.3.nupkg.sha512",
+    "C:\\Users\\jaapi\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.13\\microsoft.visualstudio.azure.containers.tools.targets.1.10.13.nupkg.sha512",
     "C:\\Users\\jaapi\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\jaapi\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\newtonsoft.json\\10.0.1\\newtonsoft.json.10.0.1.nupkg.sha512",
