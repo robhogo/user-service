@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RoBHo_UserService.Helpers;
 using RoBHo_UserService.Request;
 using RoBHo_UserService.Services;
 using System;
-using System.Threading.Tasks;
 
 namespace RoBHo_UserService.Controllers
 {
@@ -11,11 +9,12 @@ namespace RoBHo_UserService.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private IUserService _userService;
+        private IAuthLogic _authLogic;
 
-        public UserController(IUserService userService)
+
+        public UserController(IAuthLogic authLogic)
         {
-            _userService = userService;
+            _authLogic = authLogic;
         }
 
         [HttpPost("authenticate")]
@@ -23,7 +22,7 @@ namespace RoBHo_UserService.Controllers
         {
             try
             {
-                var response = _userService.Authenticate(model);
+                var response = _authLogic.Authenticate(model);
 
                 if (response == null)
                     return BadRequest(new { message = "Username or password is incorrect" });
@@ -41,7 +40,7 @@ namespace RoBHo_UserService.Controllers
         {
             try
             {
-                bool response = _userService.Register(model);
+                bool response = _authLogic.Register(model);
 
                 if (!response)
                     return BadRequest(new { message = "Username is already in use" });
@@ -52,13 +51,6 @@ namespace RoBHo_UserService.Controllers
             {
                 return BadRequest(new { message = e.ToString() });
             }
-        }
-        [Authorize]
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var users = _userService.GetAll();
-            return Ok(users);
         }
     }
 }

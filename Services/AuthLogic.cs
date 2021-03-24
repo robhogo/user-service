@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using RoBHo_UserService.Contexts;
 using RoBHo_UserService.Helpers;
 using RoBHo_UserService.Models;
+using RoBHo_UserService.repositories;
 using RoBHo_UserService.Request;
 using System;
 using System.Collections.Generic;
@@ -14,20 +14,20 @@ using System.Threading.Tasks;
 
 namespace RoBHo_UserService.Services
 {
-    public class UserService : IUserService
+    public class AuthLogic : IAuthLogic
     {
-        private readonly UserServiceContext _context;
+        private readonly IUserRepository _repository;
         private readonly AppSettings _appSettings;
 
-        public UserService(IOptions<AppSettings> appSettings, UserServiceContext context)
+        public AuthLogic(IOptions<AppSettings> appSettings, IUserRepository repository)
         {
             _appSettings = appSettings.Value;
-            _context = context;
+            _repository = repository;
         }
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _context.Users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+            User user = _repository.GetUserByCredentials(model.Username, model.Password);
 
             // return null if user not found
             if (user == null) return null;
@@ -46,30 +46,10 @@ namespace RoBHo_UserService.Services
                 Password = model.Password,
                 Email = model.Email
             };
-            try
-            {
-                _context.Users.Add(user);
-                 _context.SaveChangesAsync();
-                return true;
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
-        }
-
-        public IEnumerable<User> GetAll()
-        {
-            return _context.Users;
-        }
-
-        public User GetById(int id)
-        {
-            return _context.Users.FirstOrDefault(x => x.Id == id);
+            return _repository.AddUser(user);
         }
 
         // helper methods
-
         private string generateJwtToken(User user)
         {
             // generate token that is valid for 7 days

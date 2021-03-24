@@ -21,7 +21,7 @@ namespace RoBHo_UserService.Helpers
             _appSettings = appSettings.Value;
         }
 
-        public async Task Invoke(HttpContext context, IUserService userService)
+        public async Task Invoke(HttpContext context, IUserLogic userService)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
@@ -31,7 +31,7 @@ namespace RoBHo_UserService.Helpers
             await _next(context);
         }
 
-        private void attachUserToContext(HttpContext context, IUserService userService, string token)
+        private void attachUserToContext(HttpContext context, IUserLogic userLogic, string token)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace RoBHo_UserService.Helpers
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
                 // attach user to context on successful jwt validation
-                context.Items["User"] = userService.GetById(userId);
+                context.Items["User"] = userLogic.GetById(userId);
             }
             catch
             {

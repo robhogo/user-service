@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoBHo_UserService.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RoBHo_UserService.Contexts
 {

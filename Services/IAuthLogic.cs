@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace RoBHo_UserService.Services
 {
-    public interface IUserService
+    public interface IAuthLogic
     {
         AuthenticateResponse Authenticate(AuthenticateRequest model);
-        IEnumerable<User> GetAll();
-        User GetById(int id);
         bool Register(RegisterRequest model);
     }
 }
