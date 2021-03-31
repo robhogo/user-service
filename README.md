@@ -1,12 +1,12 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+[![Build](https://github.com/kwetterr/ui/actions/workflows/build.yml/badge.svg)](https://github.com/robhogo/user-service/actions/workflows/build.yml)
+[![Publish Docker image](https://github.com/kwetterr/ui/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/robhogo/user-service/actions/workflows/docker-publish.yml)
 
+# 🧔 user-service 
 
 ## Getting Started
-Choose one of these three options:
+Choose one of these two options:
 - Run with dotnet CLI.
-- Run in container.
-- Run in container with MSSQL-dabase.
+- Run with docker compose
 
 ### Dotnet CLI
 ```zsh
@@ -15,8 +15,8 @@ dotnet build
 dotnet run
 ```
 
-### Run with Docker
+### Run with Docker compose
 ```zsh
- docker build -t robho-userservice .
- docker run -d -p 5000:5000 --name robho-userserv robho-userservice
+ docker-compose build
+ docker-compose up
 ```
