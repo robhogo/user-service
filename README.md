@@ -2,6 +2,10 @@
 [![Publish Docker image](https://github.com/kwetterr/ui/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/robhogo/user-service/actions/workflows/docker-publish.yml)
 
 # 🧔 user-service 
+user-service for robhogo users. Made with:
+- .Net Core 3.1
+- MSSQL database
+- JWT
 
 ## Getting Started
 Choose one of these two options:
