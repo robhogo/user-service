@@ -36,10 +36,7 @@ namespace RoBHo_UserService
             services.AddControllers();
 
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserService", Version = "v1" });
-            });
+            services.AddSwaggerGen();
 
             // configure DI for application services
             services.AddScoped<IUserLogic, UserLogic>();
@@ -75,8 +72,19 @@ namespace RoBHo_UserService
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "user-service v1"));
+            app.UseSwagger(c =>
+            {
+                c.SerializeAsV2 = true;
+            });
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "user-service");
+                // Serve the swagger UI at the app's root
+                c.RoutePrefix = string.Empty;
+            });
 
             // custom jwt auth middleware
             app.UseMiddleware<JwtMiddleware>();
