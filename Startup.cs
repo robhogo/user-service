@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using RoBHo_UserService.Contexts;
 using RoBHo_UserService.Helpers;
 using RoBHo_UserService.repositories;
@@ -27,11 +28,18 @@ namespace RoBHo_UserService
             services.AddDbContext<UserServiceContext>(
                 options => options.UseSqlServer(connection));
 
+
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(Configuration);
+
             services.AddCors();
             services.AddControllers();
 
-            // configure strongly typed settings object
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserService", Version = "v1" });
+            });
 
             // configure DI for application services
             services.AddScoped<IUserLogic, UserLogic>();
@@ -66,6 +74,9 @@ namespace RoBHo_UserService
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "user-service v1"));
 
             // custom jwt auth middleware
             app.UseMiddleware<JwtMiddleware>();

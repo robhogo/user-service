@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RoBHo_UserService.Helpers;
 using RoBHo_UserService.Models;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,34 +20,39 @@ namespace RoBHo_UserService.Services
     {
         private readonly IUserRepository _repository;
         private readonly AppSettings _appSettings;
+        private readonly PasswordHasher _passwordHasher;
 
         public AuthLogic(IOptions<AppSettings> appSettings, IUserRepository repository)
         {
             _appSettings = appSettings.Value;
             _repository = repository;
+            _passwordHasher = new PasswordHasher(_appSettings);
         }
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            User user = _repository.GetUserByCredentials(model.Username, model.Password);
-
-            // return null if user not found
+            User user = _repository.GetUserByCredentials(model.Username);
             if (user == null) return null;
+
+            var verified = _passwordHasher.Check(user.Password, model.Password).Verified;
+            if (!verified) return null;
 
             // authentication successful so generate jwt token
             var token = generateJwtToken(user);
-
             return new AuthenticateResponse(user, token);
         }
 
         public bool Register(RegisterRequest model)
         {
+            var hashedPassword = _passwordHasher.Hash(model.Password);
+
             User user = new User()
             {
                 Username = model.Username,
-                Password = model.Password,
+                Password = hashedPassword,
                 Email = model.Email
             };
+
             return _repository.AddUser(user);
         }
 

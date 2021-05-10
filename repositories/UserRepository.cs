@@ -32,9 +32,9 @@ namespace RoBHo_UserService.repositories
             return _context.Users.FirstOrDefault(x => x.Id == id);
         }
 
-        public User GetUserByCredentials(string username, string password)
+        public User GetUserByCredentials(string username)
         {
-            return _context.Users.SingleOrDefault(x => x.Username == username && x.Password == password);
+            return _context.Users.SingleOrDefault(x => x.Username == username);
         }
     }
 }

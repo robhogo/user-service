@@ -11,7 +11,6 @@ namespace RoBHo_UserService.Controllers
     {
         private IAuthLogic _authLogic;
 
-
         public UserController(IAuthLogic authLogic)
         {
             _authLogic = authLogic;
