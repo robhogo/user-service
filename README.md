@@ -1,12 +1,17 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+[![Build](https://github.com/kwetterr/ui/actions/workflows/build.yml/badge.svg)](https://github.com/robhogo/user-service/actions/workflows/build.yml)
+[![Publish Docker image](https://github.com/kwetterr/ui/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/robhogo/user-service/actions/workflows/docker-publish.yml)
+[![CodeQL](https://github.com/kwetterr/user-service/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/robhogo/user-service/actions/workflows/codeql-analysis.yml)
 
+# 🧔 user-service 
+user-service for robhogo users. Made with:
+- .Net Core 3.1
+- MSSQL database
+- JWT
 
 ## Getting Started
-Choose one of these three options:
+Choose one of these two options:
 - Run with dotnet CLI.
-- Run in container.
-- Run in container with MSSQL-dabase.
+- Run with docker compose
 
 ### Dotnet CLI
 ```zsh
@@ -15,12 +20,13 @@ dotnet build
 dotnet run
 ```
 
-### Run with Docker
+### Run with Docker compose
 ```zsh
- docker build -t robho-userservice .
- docker run -d -p 5000:5000 --name robho-userserv robho-userservice
+ docker-compose build
+ docker-compose up
 ```
 
 ### Used work
 https://medium.com/@nick_92077/user-authentication-basics-hashing-and-jwt-3f9adf12272
 https://medium.com/dealeron-dev/storing-passwords-in-net-core-3de29a3da4d2
+
