@@ -1,7 +1,10 @@
 ﻿version: "3.7"
 services:
     pkg:
-        build: .
+        build:
+          context: .
+          dockerfile: Dockerfile.local
+        container_name: user-service
         ports:
             - "5001:5001"
         depends_on:

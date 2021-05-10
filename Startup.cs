@@ -26,7 +26,7 @@ namespace RoBHo_UserService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = Configuration.GetConnectionString("UserServiceContext");
+            var connection = Configuration.GetValue<string>("ConnectionString");
             services.AddDbContext<UserServiceContext>(
                 options => options.UseSqlServer(connection));
 
