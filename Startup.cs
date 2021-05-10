@@ -14,6 +14,8 @@ namespace RoBHo_UserService
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,11 +34,21 @@ namespace RoBHo_UserService
             // configure strongly typed settings object
             services.Configure<AppSettings>(Configuration);
 
-            services.AddCors();
             services.AddControllers();
-
-
             services.AddSwaggerGen();
+
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                      builder =>
+                      {
+                          builder.WithOrigins("*")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowAnyOrigin();
+                      });
+            });
 
             // configure DI for application services
             services.AddScoped<IUserLogic, UserLogic>();
@@ -54,6 +66,7 @@ namespace RoBHo_UserService
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseHttpsRedirection();
 
@@ -65,12 +78,6 @@ namespace RoBHo_UserService
             {
                 endpoints.MapControllers();
             });
-
-            // global cors policy
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
 
             app.UseSwagger(c =>
             {
